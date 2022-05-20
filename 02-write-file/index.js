@@ -6,7 +6,7 @@ const { stdin, stdout } = process;
 const dir = path.join(__dirname, 'text.txt');
 const output = fs.createWriteStream(dir, 'utf-8');
 
-stdout.write('Привет! Введи строку для записи в файл или "Exit" для выхода:\n');
+stdout.write('Привет! Введи строку для записи в файл или "exit" для выхода:\n');
 
 stdin.on('data', data => {
   const chunk = data.toString();
