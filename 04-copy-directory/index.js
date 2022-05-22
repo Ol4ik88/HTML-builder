@@ -9,9 +9,9 @@ const dirCopy = path.join(__dirname,'files-copy');
 async function copy() {
   await rm(dirCopy, { recursive: true, force: true });
   await mkdir(dirCopy, { recursive: true });
-  const dirent = await readdir(dirSource, { withFileTypes: true });
+  const files = await readdir(dirSource, { withFileTypes: true });
 
-  for (const file of dirent) {
+  for (const file of files) {
     if (file.isFile()) {
       await copyFile(
         path.resolve(dirSource, file.name),
