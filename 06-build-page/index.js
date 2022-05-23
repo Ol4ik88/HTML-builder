@@ -31,11 +31,16 @@ async function copy(dirAseets, newAssets) {
 async function bundle() {
   const ws = fs.createWriteStream(newStyles);
   const files= await readdir(dirStyles, { withFileTypes: true });
+  files.reverse();
   for (const file of files) {
     if (file.isFile() && path.parse(file.name).ext === '.css') {
       const fileCSS = path.join(dirStyles, file.name);
       const rs = fs.createReadStream(fileCSS);
-      rs.pipe(ws, {end: false});
+      let data = '';
+      rs.on('data', chunk => data += chunk);
+      rs.on('end', () => {
+        ws.write(`${data}\n`);
+      });
     }
   }
 }
